@@ -17,5 +17,6 @@ with open("input.txt", "r") as f:
         num = rotate(num, dir, int(steps))
         if num == 0:
             total += 1
+        total += steps // 100
 
 print(total)
