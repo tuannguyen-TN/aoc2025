@@ -16,7 +16,8 @@ def getJoltage(bank):
        bank //= 10
 
        if lastDigit >= currLargest:
-           currLargest, prevLargest = lastDigit, currLargest
+           prevLargest = max(prevLargest, currLargest)
+           currLargest = lastDigit
 
     return currLargest * 10 + prevLargest
 
