@@ -1,25 +1,30 @@
 import math
 
-def getJoltage(bank):
-    lastDigit = bank % 10
-    bank //= 10
-    
-    prevLargest = lastDigit
+def getJoltage(bank, n):
+    stack = []
 
-    lastDigit = bank % 10
-    bank //= 10
-
-    currLargest = lastDigit
+    for i in range(n):
+        lastDigit = bank % 10
+        bank //= 10
+        stack.append(lastDigit)
 
     while bank > 0:
-       lastDigit = bank % 10
-       bank //= 10
+        lastDigit = bank % 10
+        bank //= 10
+        temp_stack = []
 
-       if lastDigit >= currLargest:
-           prevLargest = max(prevLargest, currLargest)
-           currLargest = lastDigit
+        while stack and lastDigit >= stack[-1]:
+           temp_stack.append(lastDigit)
+           lastDigit = stack.pop()
 
-    return currLargest * 10 + prevLargest
+        while temp_stack:
+            stack.append(temp_stack.pop())
+            
+    result = 0
+    while stack:
+        result = result * 10 + stack.pop()
+
+    return result
 
 
 if __name__ == "__main__":
@@ -28,7 +33,6 @@ if __name__ == "__main__":
         total = 0
 
         for num in content:
-            print(num, getJoltage(num))
-            total += getJoltage(num)
+            total += getJoltage(num, 12)
 
-        print(total)
+        print(total) 
